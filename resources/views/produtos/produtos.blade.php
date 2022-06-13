@@ -3,34 +3,48 @@
 @section('title', 'Produtos')
 
 @section('content')
-    <h1>Produtos</h1>
-    <a href="{{ route('servicos.index') }}">Serviços</a>
-
-    <section>
+    <section class="mt-3">
         <h2>Cadastro de um novo produto</h2>
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <p>{{$error}}</p>
-        @endforeach
-        @endif
-        <form action="{{route('produtos.insert')}}" method="POST">
+        
+        <form class="mt-3 row" action="{{route('produtos.insert')}}" method="POST">
             @csrf
-            <input type="text" name="nome" placeholder="Nome do novo produto" value="{{old('nome')}}">
-            <input type="number" name="preco" placeholder="Preço do novo produto" value="{{old('preco')}}"><br>
-            <textarea name="descricao" cols="30" rows="10" placeholder="Descreva o novo produto..."></textarea><br>
-            <button type="submit">Cadastrar</button>
-        </form>
-        <br>
-        <br>
-        <h2>Produtos</h2>
-        @foreach ($produtos as $produto)
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">{{$error}}</div>
+            @endforeach
+            @endif
+            <div class="col">
+                <label class="form-label" for="nome">Nome do produto</label>
+                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do novo produto" value="{{old('nome')}}">
+            </div>
+            <div class="col">
+                <label class="form-label" for="number">Preço do produto</label>
+                <input class="form-control" type="number" name="preco" id="preco" placeholder="Preço do novo produto" value="{{old('preco')}}"><br>
+            </div>
             <div>
-                <hr>
-                <h3>{{$produto->nome}}</h3>
-                <p>Preço: R$ {{number_format($produto->preco, 2)}}</p>
-                <p>{{$produto->descricao}}</p>
+                <label class="form-label" for="descricao">Descrição do produto</label>
+                <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" placeholder="Descreva o novo produto..."></textarea><br>
+            </div>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+        </form>
+    </section>
+    
+    <section class="mt-5">
+        <h2>Produtos</h2>
+        <hr>
+        <div class="row row-cols-3">
+        @foreach ($produtos as $produto)
+            <div class="col">
+                <div class="card shadow-sm m-3 col">
+                    <div class="card-body">
+                        <h4>{{$produto->nome}}</h4>
+                        <span class="badge bg-success">R$ {{number_format($produto->preco, 2)}}</span>
+                        <p class="mt-3">{{$produto->descricao}}</p>
+                    </div>
+                </div>
             </div>
         @endforeach
+        </div>
     </section>
 @endsection
 
