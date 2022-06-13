@@ -22,13 +22,13 @@ class ServicoController extends Controller
 
     public function insert(Request $request)
     {
-        try {
-            $validatedRequest = $request->validate([
-                'produto_id' => 'required',
-                'nome' => 'required|unique:servicos|max:255',
-                'descricao' => 'nullable'
-            ]);
+        $validatedRequest = $request->validate([
+            'produto_id' => 'required',
+            'nome' => 'required|unique:servicos|max:255',
+            'descricao' => 'nullable'
+        ]);
 
+        try {
             if ($request->produto_id == '') {
                 throw new Exception('');
             }
