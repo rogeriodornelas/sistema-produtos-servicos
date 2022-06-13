@@ -14,7 +14,7 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::all();
 
-        return view('produtos', compact('produtos'));
+        return view('produtos.produtos', compact('produtos'));
     }
     
     public function insert(Request $request)

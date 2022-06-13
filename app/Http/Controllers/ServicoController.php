@@ -17,7 +17,7 @@ class ServicoController extends Controller
         $produtos = DB::table('produtos')->select('id', 'nome')->get();
         $servicos = Servico::all();
 
-        return view('servicos', compact('produtos', 'servicos'));
+        return view('servicos.servicos', compact('produtos', 'servicos'));
     }
 
     public function insert(Request $request)
