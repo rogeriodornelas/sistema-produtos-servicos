@@ -23,11 +23,21 @@ class ServicoPostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-                'produto_id' => 'required',
-                'nome' => 'required|unique:servicos|max:255',
-                'descricao' => 'nullable'
+        $rules = [
+            'produto_id' => [
+                'required',
+            ],
+            'nome' => [
+                'required',
+                'unique:servicos,nome,'.$this->id,
+                'max:255',
+            ],
+            'descricao' => [
+                'nullable',
+            ]
         ];
+
+        return $rules;
     }
 
     public function messages()
