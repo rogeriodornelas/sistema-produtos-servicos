@@ -35,6 +35,5 @@ class ProdutoController extends Controller
         } catch (Exception $e) {
             return dd($e);
         }
-
     }
 }

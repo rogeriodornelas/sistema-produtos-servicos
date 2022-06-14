@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
 use App\Models\Servico;
 use Exception;
 use Illuminate\Http\Request;
@@ -47,5 +48,23 @@ class ServicoController extends Controller
         } catch (Exception $e) {
             return response()->json(['mensage' => 'teste: '.$e->getMessage()]);
         }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $servicoDeletado = Servico::find($id);
+
+            DB::transaction(function () use($servicoDeletado) {
+                $servicoDeletado->produtos()->detach();
+                $servicoDeletado->delete();
+            });
+            
+            dd($servicoDeletado);
+            
+        } catch (Exception $e) {
+            dd('deu erro', $e, $servicoDeletado);
+        }
+
     }
 }

@@ -47,13 +47,22 @@
                         <div class="card">
                             <h5 class="card-header">Produtos relacionados</h5>
                             <ul class="list-group list-group-flush">
-                                @foreach ($servico->produtos as $produto)
-                                    <li class="list-group-item">
-                                        {{$produto->nome}} <span class="badge text-bg-light">R$ {{number_format($produto->preco, 2)}}</span>
-                                        {{-- {{$produto->descricao}} --}}
-                                    </li>
-                                @endforeach
+                                @if ($servico->produtos->count())
+                                    @foreach ($servico->produtos as $produto)
+                                        <li class="list-group-item">
+                                            {{$produto->nome}} <span class="badge text-bg-light">R$ {{number_format($produto->preco, 2)}}</span>
+                                            {{-- {{$produto->descricao}} --}}
+                                        </li>
+                                    @endforeach
+
+                                    @else
+                                    <li class="list-group-item">Nenhum produto associado</li>
+                                @endif
                             </ul>
+                        </div>
+                        <div class="mt-3">
+                            <a class="btn btn-warning" href="{{'servicos/delete/'.$servico->id}}">Deletar</a>
+                            <a class="btn btn-primary" href="{{'servicos/edit/'.$servico->id}}">Editar</a>
                         </div>
                     </div>
                 </div>
