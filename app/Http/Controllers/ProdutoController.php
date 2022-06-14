@@ -52,4 +52,9 @@ class ProdutoController extends Controller
             return dd($e);
         }
     }
+
+    public function edit($id)
+    {
+        return view('produtos.produto-edit');
+    }
 }

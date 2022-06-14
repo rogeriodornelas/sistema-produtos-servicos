@@ -1,0 +1,35 @@
+@extends('layouts.default')
+
+@section('title', 'Produtos')
+
+@section('content')
+    <section class="mt-3">
+        <h2>Cadastro de um novo produto</h2>
+        
+        <form class="mt-3 row" action="{{route('produtos.insert')}}" method="POST">
+            @csrf
+            @if (session('message'))
+                <div class="alert alert-success">{{session('message')}}</div>
+            @endif
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">{{$error}}</div>
+            @endforeach
+            @endif
+            <div class="col">
+                <label class="form-label" for="nome">Nome do produto</label>
+                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do novo produto" value="{{old('nome')}}">
+            </div>
+            <div class="col">
+                <label class="form-label" for="number">Preço do produto</label>
+                <input class="form-control" type="number" name="preco" id="preco" placeholder="Preço do novo produto" value="{{old('preco')}}"><br>
+            </div>
+            <div>
+                <label class="form-label" for="descricao">Descrição do produto</label>
+                <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" placeholder="Descreva o novo produto..."></textarea><br>
+            </div>
+            <button class="btn btn-primary" type="submit">Cadastrar</button>
+        </form>
+    </section>
+@endsection
+
