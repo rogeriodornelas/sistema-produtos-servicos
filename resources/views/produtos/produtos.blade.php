@@ -8,6 +8,9 @@
         
         <form class="mt-3 row" action="{{route('produtos.insert')}}" method="POST">
             @csrf
+            @if (session('message'))
+                <div class="alert alert-success">{{session('message')}}</div>
+            @endif
             @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="alert alert-danger">{{$error}}</div>
@@ -40,6 +43,10 @@
                         <h4>{{$produto->nome}}</h4>
                         <span class="badge bg-success">R$ {{number_format($produto->preco, 2)}}</span>
                         <p class="mt-3">{{$produto->descricao}}</p>
+                        <div class="mt-3">
+                            <a class="btn btn-warning" href="{{'produtos/delete/'.$produto->id}}">Deletar</a>
+                            <a class="btn btn-primary" href="{{'produtos/edit/'.$produto->id}}">Editar</a>
+                        </div>
                     </div>
                 </div>
             </div>

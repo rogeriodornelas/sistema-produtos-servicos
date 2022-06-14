@@ -53,18 +53,18 @@ class ServicoController extends Controller
     public function delete($id)
     {
         try {
-            $servicoDeletado = Servico::find($id);
+            $servicoDeleted = Servico::find($id);
 
-            DB::transaction(function () use($servicoDeletado) {
-                $servicoDeletado->produtos()->detach();
-                $servicoDeletado->delete();
+            DB::transaction(function () use($servicoDeleted) {
+                $servicoDeleted->produtos()->detach();
+                $servicoDeleted->delete();
             });
             
-            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeletado->nome} deletado com sucesso");
+            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeleted->nome} deletado com sucesso");
             
         } catch (Exception $e) {
-            // dd('deu erro', $e, $servicoDeletado);
-            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeletado->nome} não foi deletado");
+            // dd('deu erro', $e, $servicoDeleted);
+            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeleted->nome} não foi deletado");
         }
 
     }

@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('produtos', [ProdutoController::class, 'index'])->name('produtos.index');
 Route::post('produtos', [ProdutoController::class, 'insert'])->name('produtos.insert');
+Route::get('produtos/edit/{id}', [ProdutoController::class, 'edit'])->name('produtos.edit');
+Route::get('produtos/delete/{id}', [ProdutoController::class, 'delete'])->name('produtos.delete');
+
 Route::get('servicos', [ServicoController::class, 'index'])->name('servicos.index');
 Route::post('servicos', [ServicoController::class, 'insert'])->name('servicos.insert');
 Route::get('servicos/edit/{id}', [ServicoController::class, 'edit'])->name('servicos.edit');

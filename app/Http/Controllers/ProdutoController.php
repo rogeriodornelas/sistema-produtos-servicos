@@ -30,8 +30,24 @@ class ProdutoController extends Controller
             Produto::create($validatedRequest);            
         });
 
-        return Redirect::route('produtos.index');
+        return Redirect::route('produtos.index')->with('message', "Produto {$validatedRequest['nome']} criado com sucesso!");
 
+        } catch (Exception $e) {
+            return dd($e);
+        }
+    }
+
+    public function delete($id)
+    {
+        $produtoDeleted = Produto::find($id);
+
+        try {
+            DB::transaction(function () use($produtoDeleted) {
+                $produtoDeleted->servicos()->detach();
+                $produtoDeleted->delete();
+            });
+
+            return Redirect::route('produtos.index')->with('message', "Produto {$produtoDeleted->nome} deletado com sucesso.");
         } catch (Exception $e) {
             return dd($e);
         }
