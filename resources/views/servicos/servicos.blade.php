@@ -12,13 +12,13 @@
             @endif
             @if ($errors->any)
                 @foreach ($errors->all() as $error)
-                    <p>{{$error}}</p>
+                    <div class="alert alert-danger">{{$error}}</div>
                 @endforeach
             @endif
             @csrf
             <div class="mb-3">
                 <label class="form-label" for="nome">Nome do novo serviço</label>
-                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do novo serviço">
+                <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome do novo serviço"  value="{{ old('nome') }}">
             </div>
             <div class="mb-3">
                 <label class="form-label" for="produto">Selecione os produtos que compõem esse serviço</label>

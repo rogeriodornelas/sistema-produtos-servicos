@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produto;
+use App\Http\Requests\ServicoPostRequest;
 use App\Models\Servico;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,13 +18,9 @@ class ServicoController extends Controller
         return view('servicos.servicos', compact('produtos', 'servicos'));
     }
 
-    public function insert(Request $request)
+    public function insert(ServicoPostRequest $request)
     {
-        $validatedRequest = $request->validate([
-            'produto_id' => 'required',
-            'nome' => 'required|unique:servicos|max:255',
-            'descricao' => 'nullable'
-        ]);
+        $validatedRequest = $request->validated();
 
         try {
             if ($request->produto_id == '') {

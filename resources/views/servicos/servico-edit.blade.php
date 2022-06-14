@@ -12,7 +12,7 @@
             @endif
             @if ($errors->any)
                 @foreach ($errors->all() as $error)
-                    <p>{{$error}}</p>
+                    <div class="alert alert-danger">{{$error}}</div>
                 @endforeach
             @endif
             @csrf
