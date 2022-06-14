@@ -6,8 +6,9 @@
     <section class="mt-3">
         <h2>Edição de produto</h2>
         
-        <form class="mt-3 row" action="{{route('produtos.update')}}" method="POST">
+        <form class="mt-3 row" action="{{route('produtos.update', ['id' => $produto->id])}}" method="POST">
             @csrf
+            @method('PUT')
             @if (session('message'))
                 <div class="alert alert-success">{{session('message')}}</div>
             @endif
@@ -28,7 +29,10 @@
                 <label class="form-label" for="descricao">Descrição do produto</label>
                 <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5">{{$produto->descricao}}</textarea><br>
             </div>
-            <button class="btn btn-primary" type="submit">Atualizar</button>
+            <div class="d-flex justify-content-end">
+                <button class="flex-fill btn btn-primary me-2" type="submit">Atualizar</button>
+                <a class="flex-fill btn btn-light ms-2" href="{{ route('produtos.index') }}">Cancelar</a>
+            </div>
         </form>
     </section>
 @endsection

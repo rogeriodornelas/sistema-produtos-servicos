@@ -55,8 +55,19 @@ class ProdutoController extends Controller
         return view('produtos.produto-edit', compact('produto'));
     }
 
-    // public function update($id)
-    // {
-    //     $produtoUpdate
-    // }
+    public function update(ProdutoPostRequest $request, $id)
+    {
+        $validatedRequest = $request->validated();
+        $produto = Produto::find($id);
+
+        try {
+            DB::transaction(function () use($produto, $validatedRequest){
+                $produto->update($validatedRequest);
+            });
+        } catch (Exception $e) {
+            dd($produto);
+        }
+        
+        return Redirect::route('produtos.index')->with('message', "Produto {$produto->nome} atualizado com sucesso.");
+    }
 }

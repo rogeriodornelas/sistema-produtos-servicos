@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Produto;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProdutoPostRequest extends FormRequest
@@ -23,11 +25,23 @@ class ProdutoPostRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nome' => 'required|unique:produtos|max:255',
-            'descricao' => 'nullable',
-            'preco' => 'required|numeric'
+        $produto = Produto::all();
+        $rules = [
+            'descricao' => [
+                'nullable',
+            ],
+            'preco' => [
+                'required',
+                'numeric',
+            ],
+            'nome' => [
+                'required',
+                'unique:produtos,nome,'.$this->id,
+                'max:255',
+            ],
         ];
+
+        return $rules;
     }
 
     public function messages()
