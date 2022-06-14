@@ -43,7 +43,7 @@ class ServicoController extends Controller
                 $servico->produtos()->sync($idProdutos);
             });
                         
-            return Redirect::route('servicos.index');
+            return Redirect::route('servicos.index')->with('message', "Serviço {$validatedRequest['nome']} criado com sucesso!");
 
         } catch (Exception $e) {
             return response()->json(['mensage' => 'teste: '.$e->getMessage()]);
@@ -60,10 +60,11 @@ class ServicoController extends Controller
                 $servicoDeletado->delete();
             });
             
-            dd($servicoDeletado);
+            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeletado->nome} deletado com sucesso");
             
         } catch (Exception $e) {
-            dd('deu erro', $e, $servicoDeletado);
+            // dd('deu erro', $e, $servicoDeletado);
+            return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeletado->nome} não foi deletado");
         }
 
     }

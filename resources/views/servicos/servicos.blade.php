@@ -7,6 +7,9 @@
         <h2>Cadastro de um novo serviço</h2>
 
         <form class="mt-3 row" action="{{route('servicos.insert')}}" id="servico-form" method="POST">
+            @if (session('message'))
+                <div class="alert alert-success">{{session('message')}}</div>
+            @endif
             @if ($errors->any)
                 @foreach ($errors->all() as $error)
                     <p>{{$error}}</p>
