@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProdutoPostRequest;
 use App\Models\Produto;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,13 +18,9 @@ class ProdutoController extends Controller
         return view('produtos.produtos', compact('produtos'));
     }
     
-    public function insert(Request $request)
+    public function insert(ProdutoPostRequest $request)
     {
-        $validatedRequest = $request->validate([
-            'nome' => 'required|unique:produtos|max:255',
-            'descricao' => 'nullable',
-            'preco' => 'required|numeric'
-        ]);
+        $validatedRequest = $request->validated();
 
         try {     
         DB::transaction(function () use($validatedRequest) {
@@ -55,6 +52,12 @@ class ProdutoController extends Controller
 
     public function edit($id)
     {
-        return view('produtos.produto-edit');
+        $produto = Produto::find($id);
+        return view('produtos.produto-edit', compact('produto'));
     }
+
+    // public function update($id)
+    // {
+    //     $produtoUpdate
+    // }
 }

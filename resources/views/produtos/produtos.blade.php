@@ -44,8 +44,8 @@
                         <span class="badge bg-success">R$ {{number_format($produto->preco, 2)}}</span>
                         <p class="mt-3">{{$produto->descricao}}</p>
                         <div class="mt-3">
-                            <a class="btn btn-light" href="{{'produtos/delete/'.$produto->id}}">Deletar</a>
-                            <a class="btn btn-light" href="{{'produtos/edit/'.$produto->id}}">Editar</a>
+                            <a class="btn btn-light" href="{{ route('produtos.delete', ['id' => $produto->id]) }}">Deletar</a>
+                            <a class="btn btn-light" href="{{ route('produtos.edit', ['id' => $produto->id]) }}">Editar</a>
                         </div>
                     </div>
                 </div>

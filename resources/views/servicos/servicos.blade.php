@@ -64,8 +64,8 @@
                             </ul>
                         </div>
                         <div class="mt-3">
-                            <a class="btn btn-light" href="{{'servicos/delete/'.$servico->id}}">Deletar</a>
-                            <a class="btn btn-light" href="{{'servicos/edit/'.$servico->id}}">Editar</a>
+                            <a class="btn btn-light" href="{{ route('servicos.delete', ['id' => $servico->id]) }}">Deletar</a>
+                            <a class="btn btn-light" href="{{ route('servicos.edit', ['id' => $servico->id]) }}">Editar</a>
                         </div>
                     </div>
                 </div>
