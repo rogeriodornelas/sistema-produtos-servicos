@@ -30,7 +30,7 @@
             </div>
             <div>
                 <label class="form-label" for="descricao">Descrição do serviço</label>
-                <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" form="servico-form">Descreva o produto...</textarea><br>
+                <textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" form="servico-form">Descreva o serviço...</textarea><br>
             </div>
             <button class="btn btn-primary" type="submit">Cadastrar</button>
         </form>

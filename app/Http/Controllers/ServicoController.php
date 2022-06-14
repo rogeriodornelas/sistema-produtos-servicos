@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ServicoPostRequest;
+use App\Models\Produto;
 use App\Models\Servico;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -62,5 +63,13 @@ class ServicoController extends Controller
             return Redirect::route('servicos.index')->with('message', "Serviço {$servicoDeleted->nome} não foi deletado");
         }
 
+    }
+
+    public function edit($id)
+    {
+        $servico = Servico::find($id);
+        $produtos = DB::table('produtos')->select('id', 'nome')->get();
+
+        return view('servicos.servico-edit', compact('servico', 'produtos'));
     }
 }
