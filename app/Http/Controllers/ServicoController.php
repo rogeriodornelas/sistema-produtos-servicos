@@ -68,8 +68,39 @@ class ServicoController extends Controller
     public function edit($id)
     {
         $servico = Servico::find($id);
-        $produtos = DB::table('produtos')->select('id', 'nome')->get();
+        $produtosAll = DB::table('produtos')->select('id', 'nome')->get();
+        $produtosServico = $servico->produtos;
 
-        return view('servicos.servico-edit', compact('servico', 'produtos'));
+        return view('servicos.servico-edit', compact('servico', 'produtosAll', 'produtosServico'));
+    }
+
+    public function update(ServicoPostRequest $request, $id)
+    {
+        $servico = Servico::find($id);
+        $validatedRequest = $request->validated();
+        $newProdutos = $validatedRequest['produto_id'] ?? null;
+
+        try {
+            DB::transaction(function () use($servico, $validatedRequest) {
+                $servico->update([
+                    'nome' => $validatedRequest['nome'],
+                    'descricao' => $validatedRequest['descricao'],
+                ]);
+            });
+        } catch (Exception $e) {
+            dd($e, $servico, $validatedRequest);
+        }
+
+        if($newProdutos) {
+            try {
+                DB::transaction(function () use($newProdutos, $servico) {
+                    $servico->produtos()->sync($newProdutos);
+                });
+            } catch (Exception $e) {
+                dd($e, $servico, $newProdutos);
+            }
+        }
+
+        return Redirect::route('servicos.index')->with('message', "Serviço {$servico->nome} atualizado com sucesso!");
     }
 }

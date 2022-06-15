@@ -24,9 +24,6 @@ class ServicoPostRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'produto_id' => [
-                'required',
-            ],
             'nome' => [
                 'required',
                 'unique:servicos,nome,'.$this->id,
@@ -37,6 +34,22 @@ class ServicoPostRequest extends FormRequest
             ]
         ];
 
+        if($this->getMethod() == 'POST') {
+            $rules += [
+                'produto_id' => [
+                    'required',
+                ],
+            ];
+        }
+
+        if($this->getMethod() == 'PUT') {
+            $rules += [
+                'produto_id' => [
+                    'nullable',
+                ],
+            ];
+        }
+        
         return $rules;
     }
 
